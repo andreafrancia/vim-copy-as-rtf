@@ -8,8 +8,17 @@ if exists('g:loaded_copy_as_rtf')
 endif
 let g:loaded_copy_as_rtf = 1
 
-if !executable('pbcopy') || !executable('textutil')
-  echomsg 'cannot load copy-as-rtf plugin, not on a mac?'
+if !has('macunix')
+    finish " probably we are under Linux
+endif
+
+if !executable('pbcopy') 
+  echomsg 'copy-as-rtf plugin: can not load dependency: pbcopy'
+  finish
+endif
+
+if !executable('textutil')
+  echomsg 'copy-as-rtf plugin: can not load dependency: textutil'
   finish
 endif
 
